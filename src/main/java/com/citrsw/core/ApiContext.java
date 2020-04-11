@@ -490,13 +490,13 @@ public class ApiContext {
                 apiParameter.setTypeFullName(param.getType().getName());
                 apiParameter.setUnderline(underline);
                 apiParameter.setName(apiParameter.getName() + "[0]");
-                getFormDataPropertyType(apiParameters, param.getParameterizedType(), apiParameter, apiParameter.getName() + "[0]", "set", cyclicProperty, propertyMap);
+                getFormDataPropertyType(apiParameters, param.getParameterizedType(), apiParameter, apiParameter.getName(), "set", cyclicProperty, propertyMap);
             } else if (param.getType().isArray()) {
                 //数组
                 apiParameter.setTypeFullName(param.getType().getCanonicalName());
                 apiParameter.setUnderline(underline);
                 apiParameter.setName(apiParameter.getName() + "[0]");
-                getFormDataPropertyType(apiParameters, (param.getType()).getComponentType(), apiParameter, apiParameter.getName() + "[0]", "set", cyclicProperty, propertyMap);
+                getFormDataPropertyType(apiParameters, (param.getType()).getComponentType(), apiParameter, apiParameter.getName() , "set", cyclicProperty, propertyMap);
             }
             //加入到循环依赖Set中
             if (!filterBastType(param.getType().getName())) {
@@ -608,11 +608,11 @@ public class ApiContext {
                 if (tArgs[0] instanceof Class && ((Class<?>) tArgs[0]).isArray()) {
                     apiParameter.setUnderline(underline);
                     apiParameter.setName(apiParameter.getName() + "[0]");
-                    getFormDataPropertyType(apiParameters, ((Class<?>) tArgs[0]).getComponentType(), apiParameter, apiParameter.getName() + "[0]", prefix, cyclicProperty, propertyMap);
+                    getFormDataPropertyType(apiParameters, ((Class<?>) tArgs[0]).getComponentType(), apiParameter, apiParameter.getName() , prefix, cyclicProperty, propertyMap);
                 } else if (Collection.class.isAssignableFrom((Class<?>) ((ParameterizedType) tArgs[0]).getRawType())) {
                     apiParameter.setUnderline(underline);
                     apiParameter.setName(apiParameter.getName() + "[0]");
-                    getFormDataPropertyType(apiParameters, tArgs[0], apiParameter, parentName + "[0]", prefix, cyclicProperty, propertyMap);
+                    getFormDataPropertyType(apiParameters, tArgs[0], apiParameter, apiParameter.getName() , prefix, cyclicProperty, propertyMap);
                 }
             } catch (ClassCastException e) {
                 Class<?> clazz = (Class<?>) tArgs[0];
@@ -629,14 +629,14 @@ public class ApiContext {
                 if (!filterBastType(clazz.getName())) {
                     cyclicProperty.add(clazz);
                 }
-                apiParameters.addAll(createFormDataParameter(clazz, apiParameter, parentName + "[0]", prefix, cyclicProperty, propertyMap));
+                apiParameters.addAll(createFormDataParameter(clazz, apiParameter, apiParameter.getName(), prefix, cyclicProperty, propertyMap));
             }
         } else {
             try {
                 if (((Class<?>) gType).isArray()) {
                     apiParameter.setUnderline(underline);
                     apiParameter.setName(apiParameter.getName() + "[0]");
-                    getFormDataPropertyType(apiParameters, ((Class<?>) gType).getComponentType(), apiParameter, apiParameter.getName() + "[0]", prefix, cyclicProperty, propertyMap);
+                    getFormDataPropertyType(apiParameters, ((Class<?>) gType).getComponentType(), apiParameter, apiParameter.getName(), prefix, cyclicProperty, propertyMap);
                 } else {
                     Class<?> clazz = (Class<?>) gType;
                     //如果最终为基本数据类型则不再解析
@@ -772,7 +772,9 @@ public class ApiContext {
                                     assert tArgs[0] instanceof ParameterizedType;
                                     //判断是否是集合
                                     if (Collection.class.isAssignableFrom((Class<?>) ((ParameterizedType) tArgs[0]).getRawType())) {
-                                        apiParameter.setTypeFullName(pType.getRawType().getTypeName());
+                                        apiParameter.setTypeFullName(((ParameterizedType) tArgs[0]).getRawType().getTypeName());
+                                        getJsonPropertyType(tArgs[0], apiParameter, prefix, cyclicProperty, propertyMap);
+                                        continue;
                                     }
                                 } catch (ClassCastException e) {
                                     apiParameter.setTypeFullName(((Class<?>) tArgs[0]).getName());
