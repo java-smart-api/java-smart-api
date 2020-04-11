@@ -1,7 +1,7 @@
-package com.cleancode.controller;
+package com.citrsw.controller;
 
-import com.cleancode.core.ApiContext;
-import com.cleancode.definition.ApiProject;
+import com.citrsw.core.ApiContext;
+import com.citrsw.definition.ApiProject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

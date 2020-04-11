@@ -1,4 +1,4 @@
-package com.cleancode.annatation;
+package com.citrsw.annatation;
 
 import org.springframework.web.bind.annotation.ValueConstants;
 

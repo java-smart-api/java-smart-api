@@ -1,6 +1,6 @@
-package com.cleancode.annatation;
+package com.citrsw.annatation;
 
-import com.cleancode.configuration.ApiConfiguration;
+import com.citrsw.configuration.ApiConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

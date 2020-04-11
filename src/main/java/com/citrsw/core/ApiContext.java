@@ -1,11 +1,11 @@
-package com.cleancode.core;
+package com.citrsw.core;
 
 import com.alibaba.fastjson.JSON;
-import com.cleancode.annatation.*;
-import com.cleancode.definition.ApiClass;
-import com.cleancode.definition.ApiMethod;
-import com.cleancode.definition.ApiParameter;
-import com.cleancode.definition.ApiProject;
+import com.citrsw.annatation.*;
+import com.citrsw.definition.ApiClass;
+import com.citrsw.definition.ApiMethod;
+import com.citrsw.definition.ApiParameter;
+import com.citrsw.definition.ApiProject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -168,9 +168,11 @@ public class ApiContext {
     private void scannerClass(String scanner, Set<ApiClass> apiClasses) {
         String s = scanner.replace(".", "/");
         URL url = ApiContext.class.getClassLoader().getResource(s);
+        if (url == null) {
+            return;
+        }
         // 获取包的名字 并进行替换
         String packageDirName = scanner.replace('.', '/');
-        assert url != null;
         // 得到协议的名称
         String protocol = url.getProtocol();
         if ("file".equals(protocol)) {

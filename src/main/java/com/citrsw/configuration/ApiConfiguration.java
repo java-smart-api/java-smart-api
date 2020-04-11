@@ -1,4 +1,4 @@
-package com.cleancode.configuration;
+package com.citrsw.configuration;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @date 2020-01-10 09:11:09
  */
 @Configuration
-@ComponentScan({"com.cleancode.controller", "com.cleancode.core"})
+@ComponentScan({"com.citrsw.controller", "com.citrsw.core"})
 public class ApiConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

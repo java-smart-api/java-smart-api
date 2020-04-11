@@ -1,4 +1,4 @@
-package com.cleancode.annatation;
+package com.citrsw.annatation;
 
 import java.lang.annotation.*;
 
@@ -8,7 +8,7 @@ import java.lang.annotation.*;
  * @author Zhenfeng Li
  * @date 2020-01-10 09:53:48
  */
-@Target(ElementType.TYPE)
+@Target({ElementType.METHOD, ElementType.TYPE, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface ApiIgnore {

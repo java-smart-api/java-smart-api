@@ -1,4 +1,4 @@
-package com.cleancode.annatation;
+package com.citrsw.annatation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
